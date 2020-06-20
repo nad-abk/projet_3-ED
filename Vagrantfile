@@ -15,8 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do | config |
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.provider :virtualbox do | vb |
-    vb.customize ["modifyvm", :id, "__memory", "1024"]
-    vb.customize ["modifyvm", :id, "__natnet1", "10.3/16"]
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--natnet1", "10.3/16"]
     vb.gui = true
   end
 
@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do | config |
           ansible.become = true
           ansible.limit = 'all'
           ansible.groups = {
-            "group1" => ["expert-devops[1:2]"]
+            "group1" => ["expert-devops[1:#{machine_id}]"]
           }
         end
       end
